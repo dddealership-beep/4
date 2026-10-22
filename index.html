@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexMiners - Premium Crypto Mining Hardware & ASIC Store</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            light: {
+              50: '#fcfdff',
+              100: '#f4f6fb',
+              200: '#e2e8f0',
+              800: '#1e293b',
+              900: '#0f172a'
+            },
+            brand: {
+              purple: '#8b5cf6',
+              pink: '#ec4899',
+              accent: '#10b981',
+              bitcoin: '#f7931a',
+              ethereum: '#627eea',
+              solana: '#9945FF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    .modal-animation {
+      animation: fadeInScale 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card-hover:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.2);
+    }
+
+    .product-img {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .glass-card-hover:hover .product-img {
+      transform: scale(1.08) rotate(1deg);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8b5cf6;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-purple-500 selection:text-white">
+
+<!-- LIVE SALES POPUP NOTIFICATION (SOCIAL PROOF) -->
+<div id="live-sales-popup" class="fixed bottom-6 left-6 z-40 bg-slate-900/95 backdrop-blur-md text-white border border-slate-700/80 p-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-500 transform translate-y-24 opacity-0 pointer-events-none max-w-sm">
+  <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shrink-0">
+    <i class="fa-solid fa-cart-shopping text-white text-sm"></i>
+  </div>
+  <div class="text-xs font-mono">
+    <p id="sales-pop-title" class="font-bold text-slate-100 truncate">New Hardware Order</p>
+    <p id="sales-pop-desc" class="text-[11px] text-purple-300 truncate">Someone from Zurich bought Antminer S21 XP</p>
+  </div>
+</div>
+
+<!-- TOP CRYPTO TICKER BAR -->
+<div class="bg-slate-900 text-white border-b border-slate-800 text-xs py-2 px-4 font-mono overflow-x-auto whitespace-nowrap">
+  <div class="max-w-7xl mx-auto flex justify-between items-center space-x-6 min-w-max">
+    <div class="flex items-center space-x-6">
+      <span class="flex items-center space-x-2 text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>LIVE RATES:</span>
+      </span>
+      <span class="font-bold"><i class="fa-solid fa-bolt text-purple-400 mr-1"></i> SOL: <span id="sol-price" class="text-emerald-400">$185.20</span></span>
+      <span class="font-bold"><i class="fa-brands fa-bitcoin text-amber-400 mr-1"></i> BTC: <span id="btc-price" class="text-amber-300">$91,450.00</span></span>
+      <span class="font-bold"><i class="fa-brands fa-ethereum text-cyan-400 mr-1"></i> ETH: <span id="eth-price" class="text-cyan-300">$3,300.00</span></span>
+      <span class="font-bold"><i class="fa-solid fa-coins text-emerald-400 mr-1"></i> USDT TRC20: <span id="usdt-price" class="text-emerald-300">$1.00</span></span>
+    </div>
+    <div class="text-slate-400 flex items-center space-x-4">
+      <span><i class="fa-solid fa-truck-fast text-purple-400 mr-1 animate-bounce"></i> Global Express Air Shipping</span>
+      <span><i class="fa-solid fa-shield-check text-emerald-400 mr-1"></i> Factory Sealed Warranty</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN NAVBAR -->
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 lg:px-8 py-3.5 transition-all">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo & Brand -->
+    <div class="flex items-center space-x-3 cursor-pointer group" onclick="scrollToTop()">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-400 p-0.5 flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:scale-110 transition duration-300">
+        <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
+          <i class="fa-solid fa-microchip text-purple-600 text-lg"></i>
+        </div>
+      </div>
+      <div>
+        <span class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-1">
+          APEX<span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-500">MINERS</span>
+        </span>
+        <span class="block text-[10px] text-slate-500 tracking-widest uppercase font-mono font-semibold">ASIC Hardware Tech</span>
+      </div>
+    </div>
+
+    <!-- Top Community Social Links -->
+    <div class="hidden lg:flex items-center space-x-3 border-l border-r border-slate-200 px-6 py-1">
+      <span class="text-xs text-slate-500 font-medium mr-1">Community:</span>
+      <a href="https://www.facebook.com/people/Apexminersshop/61595634779849/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-100 hover:bg-blue-600 text-slate-700 hover:text-white px-3 py-1.5 rounded-xl text-xs transition duration-300 transform hover:-translate-y-0.5 font-semibold shadow-sm" title="Facebook Page">
+        <i class="fa-brands fa-facebook-f text-blue-500 group-hover:text-white"></i>
+        <span>Facebook</span>
+      </a>
+      <a href="https://t.me/apexofficial01" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-100 hover:bg-sky-500 text-slate-700 hover:text-white px-3 py-1.5 rounded-xl text-xs transition duration-300 transform hover:-translate-y-0.5 font-semibold shadow-sm" title="Telegram Channel">
+        <i class="fa-brands fa-telegram text-sky-500"></i>
+        <span>Telegram</span>
+      </a>
+    </div>
+
+    <!-- Header Action Controls -->
+    <div class="flex items-center space-x-3 sm:space-x-4">
+      <button onclick="openCalcModal()" class="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 text-purple-700 px-3.5 py-2 rounded-xl text-xs font-bold border border-purple-200/80 transition transform hover:scale-105 shadow-xs">
+        <i class="fa-solid fa-chart-line text-purple-600"></i>
+        <span>Profit & ROI Calc</span>
+      </button>
+
+      <div id="user-nav-container">
+        <button id="auth-btn" onclick="openAuthModal()" class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 transition transform hover:scale-105 shadow-sm">
+          <i class="fa-regular fa-user text-purple-600"></i>
+          <span id="auth-btn-text">Sign In</span>
+        </button>
+      </div>
+
+      <button onclick="toggleCartDrawer()" class="relative bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-95 text-white px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 shadow-lg shadow-purple-500/25 transition transform hover:scale-105">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="hidden sm:inline">Cart</span>
+        <span id="cart-badge" class="bg-amber-400 text-slate-950 font-extrabold text-xs px-2 py-0.5 rounded-full ml-1 animate-pulse">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<section class="relative py-16 px-4 lg:px-8 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200 overflow-hidden">
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-400/15 blur-[120px] rounded-full pointer-events-none animate-float"></div>
+
+  <div class="max-w-7xl mx-auto text-center relative z-10">
+    <span class="inline-flex items-center space-x-2 bg-purple-50 border border-purple-200 text-purple-700 text-xs font-mono px-4 py-1.5 rounded-full mb-5 font-bold shadow-sm animate-pulse">
+      <i class="fa-solid fa-sparkles text-xs"></i>
+      <span>DIRECT HARDWARE DISTRIBUTION & SECURE CRYPTO PAYMENTS</span>
+    </span>
+    <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-5">
+      Next-Gen <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500">Antminer ASIC Hardware</span> Delivered Worldwide
+    </h1>
+    <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mb-8 font-medium">
+      Explore factory-sealed Bitmain mining rigs. Click any product for comprehensive specs or checkout instantly using Solana, Bitcoin, Ethereum, or USDT TRC20.
+    </p>
+
+    <!-- NETWORK STATS TICKER -->
+    <div class="max-w-4xl mx-auto mb-8 bg-slate-900 text-slate-300 rounded-2xl p-3 sm:p-4 border border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs shadow-lg">
+      <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+        <span class="block text-[10px] text-slate-400">BTC HASHRATE</span>
+        <span class="text-sm font-extrabold text-amber-400">712.4 EH/s</span>
+      </div>
+      <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+        <span class="block text-[10px] text-slate-400">DIFFICULTY</span>
+        <span class="text-sm font-extrabold text-purple-400">92.44 T</span>
+      </div>
+      <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+        <span class="block text-[10px] text-slate-400">GLOBAL WAREHOUSES</span>
+        <span class="text-sm font-extrabold text-emerald-400">3 Strategic Hubs</span>
+      </div>
+      <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+        <span class="block text-[10px] text-slate-400">AIR FREIGHT SPEED</span>
+        <span class="text-sm font-extrabold text-cyan-400">7 - 14 Days</span>
+      </div>
+    </div>
+
+    <!-- Search & Filter Control Panel -->
+    <div class="max-w-3xl mx-auto glass-card p-3 rounded-2xl flex flex-col sm:flex-row gap-2 shadow-xl">
+      <div class="relative flex-1">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+        <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Search Antminer model, algorithm, coin..." class="w-full bg-slate-50 text-slate-900 text-sm pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-purple-500 transition font-mono placeholder:text-slate-400">
+      </div>
+      <div class="flex items-center space-x-1.5 overflow-x-auto py-1 sm:py-0">
+        <button onclick="setFilter('ALL')" class="filter-btn active bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold px-4 py-2 rounded-xl text-xs whitespace-nowrap transition transform hover:scale-105 shadow-md">All Rigs</button>
+        <button onclick="setFilter('SHA-256')" class="filter-btn text-slate-600 hover:text-slate-900 bg-slate-100 px-3.5 py-2 rounded-xl text-xs whitespace-nowrap transition transform hover:scale-105 font-semibold">SHA-256</button>
+        <button onclick="setFilter('Scrypt')" class="filter-btn text-slate-600 hover:text-slate-900 bg-slate-100 px-3.5 py-2 rounded-xl text-xs whitespace-nowrap transition transform hover:scale-105 font-semibold">Scrypt</button>
+        <button onclick="setFilter('Equihash')" class="filter-btn text-slate-600 hover:text-slate-900 bg-slate-100 px-3.5 py-2 rounded-xl text-xs whitespace-nowrap transition transform hover:scale-105 font-semibold">Equihash</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN PRODUCT CATALOG GRID -->
+<main class="max-w-7xl mx-auto px-4 lg:px-8 py-12 flex-grow w-full">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Available Mining Rig Inventory</h2>
+      <p class="text-xs sm:text-sm text-slate-500 font-mono mt-1">Click any card to inspect detailed specifications & factory warranties</p>
+    </div>
+    <button onclick="openCalcModal()" class="md:hidden text-xs bg-purple-50 text-purple-700 px-3.5 py-2 rounded-xl border border-purple-200 font-bold shadow-sm">
+      <i class="fa-solid fa-calculator mr-1"></i> Calculator
+    </button>
+  </div>
+
+  <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Dynamic product cards populated via JavaScript -->
+  </div>
+</main>
+
+<!-- SECTION 1: FAST 7-14 DAYS GLOBAL EXPRESS SHIPPING -->
+<section class="py-16 px-4 lg:px-8 bg-white border-t border-b border-slate-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="inline-flex items-center space-x-2 bg-purple-50 border border-purple-200 text-purple-700 text-xs font-mono px-4 py-1 rounded-full font-bold uppercase mb-3">
+        <i class="fa-solid fa-plane-shipment text-purple-600"></i>
+        <span>Express Air Logistics</span>
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Guaranteed 7 to 14 Days Door-to-Door Worldwide Express Delivery</h2>
+      <p class="text-slate-600 text-sm mt-3 font-medium">We partner directly with leading international air logistics networks including DHL Express, FedEx, and UPS to guarantee fast, safe, and fully insured delivery of your ASIC mining hardware directly from our regional distribution hubs.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-box-check"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">1. Pre-Flight Inspection</h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">Every ASIC unit undergoes a stringent 24-hour hash rate and thermal test cycle before dispatch to guarantee 100% factory stability upon arrival.</p>
+        </div>
+        <span class="text-[11px] font-mono font-bold text-purple-600 mt-4 block">Timeline: Days 1–2</span>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-plane-departure"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">2. Express Air Freight</h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">Packaged in reinforced ESD-safe double-wall industrial containers and loaded onto priority air cargo routes for fast international transport.</p>
+        </div>
+        <span class="text-[11px] font-mono font-bold text-purple-600 mt-4 block">Timeline: Days 3–7</span>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-passport"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">3. Customs Clearance</h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">Our global logistics partners handle complete HS code customs documentation and duty compliance so your package passes seamlessly without delay.</p>
+        </div>
+        <span class="text-[11px] font-mono font-bold text-purple-600 mt-4 block">Timeline: Days 8–11</span>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-house-chimney-check"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">4. Doorstep Courier Delivery</h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">Final delivery right to your facility or residential address with required signature verification and real-time GPS tracking sent to your phone.</p>
+        </div>
+        <span class="text-[11px] font-mono font-bold text-emerald-600 mt-4 block">Guaranteed: Days 7–14</span>
+      </div>
+    </div>
+
+    <!-- Shipping Highlights Grid -->
+    <div class="mt-10 bg-slate-900 text-white p-8 rounded-3xl grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+      <div class="flex items-start space-x-3">
+        <i class="fa-solid fa-shield-check text-purple-400 text-xl mt-1"></i>
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">Full Transit Insurance</h4>
+          <p class="text-slate-400">100% covered against loss, damage, or freight delay during transit worldwide.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start space-x-3">
+        <i class="fa-solid fa-satellite-dish text-purple-400 text-xl mt-1"></i>
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">Real-Time Tracking</h4>
+          <p class="text-slate-400">Receive instant SMS and Facebook support updates paired directly to your order ID.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start space-x-3">
+        <i class="fa-solid fa-warehouse text-purple-400 text-xl mt-1"></i>
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">Global Regional Hubs</h4>
+          <p class="text-slate-400">Dispatched directly from strategic warehouses in Hong Kong, Dubai, and Europe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: GLOBALLY TRUSTED COMPANY BRAND HIGHLIGHT -->
+<section class="py-16 px-4 lg:px-8 bg-gradient-to-b from-slate-50 to-slate-100">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: Brand Description -->
+      <div class="lg:col-span-7 space-y-6">
+        <span class="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono px-4 py-1.5 rounded-full font-bold uppercase">
+          <i class="fa-solid fa-badge-check text-emerald-600"></i>
+          <span>Globally Verified ASIC Distributor</span>
+        </span>
+
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          The World’s Premier & Most Trusted Partner for High-Performance ASIC Mining Hardware
+        </h2>
+
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+          ApexMiners stands as an industry authority and official global supply channel for Bitmain Antminer hardware. Serving commercial mining farms, institutional operations, and home miners across 60+ countries, we bridge the gap between manufacturer production and secure global delivery.
+        </p>
+
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+          By integrating multi-crypto escrow verification, direct manufacturer warranty tracking, and rapid air freight logistics, ApexMiners has processed over $25M+ in verified hardware transactions with zero compromise on security or authenticity.
+        </p>
+
+        <!-- Trust Badges Bar -->
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200 font-mono text-center">
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+            <span class="block text-2xl font-black text-purple-600">60+</span>
+            <span class="text-[11px] text-slate-500 uppercase font-semibold">Countries Served</span>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+            <span class="block text-2xl font-black text-purple-600">100%</span>
+            <span class="text-[11px] text-slate-500 uppercase font-semibold">Genuine Bitmain Rigs</span>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+            <span class="block text-2xl font-black text-purple-600">24/7</span>
+            <span class="text-[11px] text-slate-500 uppercase font-semibold">Facebook & Tech Support</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Verification & Guarantee Card -->
+      <div class="lg:col-span-5">
+        <div class="glass-card bg-white p-8 rounded-3xl border border-slate-200 shadow-xl space-y-6">
+          <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-purple-500/20">
+              <i class="fa-solid fa-building-circle-check"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Official ApexMiners Guarantees</h3>
+              <p class="text-xs text-slate-500 font-mono">Institutional Reliability & Transparency</p>
+            </div>
+          </div>
+
+          <ul class="space-y-4 text-xs font-mono">
+            <li class="flex items-start space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-0.5 shrink-0"></i>
+              <div>
+                <span class="font-bold text-slate-900 block">Direct Factory Authorization</span>
+                <span class="text-slate-500">Every machine carries an active Bitmain manufacturer warranty verifiable via original serial number.</span>
+              </div>
+            </li>
+
+            <li class="flex items-start space-x-3">
+              <i class="fa-solid fa-lock text-purple-600 text-base mt-0.5 shrink-0"></i>
+              <div>
+                <span class="font-bold text-slate-900 block">Encrypted On-Chain Escrow</span>
+                <span class="text-slate-500">All Solana, Bitcoin, Ethereum, and USDT TRC20 transactions are protected by on-chain verification before dispatch.</span>
+              </div>
+            </li>
+
+            <li class="flex items-start space-x-3">
+              <i class="fa-solid fa-headset text-amber-500 text-base mt-0.5 shrink-0"></i>
+              <div>
+                <span class="font-bold text-slate-900 block">Dedicated Mining Engineers</span>
+                <span class="text-slate-500">Free lifetime post-sale guidance for power setup, pool connection, firmware, and immersion tuning.</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="pt-2">
+            <a href="https://www.facebook.com/people/Apexminersshop/61595634779849/" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 text-white font-bold py-3.5 rounded-2xl hover:opacity-95 transition transform hover:scale-[1.02] shadow-md shadow-purple-500/20 flex items-center justify-center space-x-2 text-xs">
+              <i class="fa-brands fa-facebook-f text-base"></i>
+              <span>Connect with Official Support</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-12 px-4 lg:px-8 text-xs">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <div>
+      <div class="flex items-center space-x-2 mb-3">
+        <i class="fa-solid fa-microchip text-purple-400 text-lg"></i>
+        <span class="text-base font-extrabold text-white tracking-tight">APEX<span class="text-purple-400">MINERS</span></span>
+      </div>
+      <p class="text-slate-400 leading-relaxed mb-4">
+        Your reliable global distributor for factory-sealed ASIC miners. Original power supplies, secure multi-crypto escrow, and air express logistics.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-white font-bold uppercase mb-3 font-mono text-[11px] tracking-wider">Accepted Cryptocurrencies</h4>
+      <ul class="space-y-2">
+        <li class="flex items-center text-slate-300"><i class="fa-solid fa-bolt text-purple-400 w-5"></i> Solana (SOL)</li>
+        <li class="flex items-center text-slate-300"><i class="fa-brands fa-bitcoin text-amber-400 w-5"></i> Bitcoin (BTC)</li>
+        <li class="flex items-center text-slate-300"><i class="fa-brands fa-ethereum text-cyan-400 w-5"></i> Ethereum (ETH)</li>
+        <li class="flex items-center text-slate-300"><i class="fa-solid fa-coins text-emerald-400 w-5"></i> USDT TRC20</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-white font-bold uppercase mb-3 font-mono text-[11px] tracking-wider">Community & Direct Support</h4>
+      <p class="mb-3">Reach out via our official community channels for bulk orders and technical support:</p>
+      <div class="flex space-x-3">
+        <a href="https://www.facebook.com/people/Apexminersshop/61595634779849/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-blue-600 flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 shadow-sm" title="Facebook Page">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://t.me/apexofficial01" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-sky-500 flex items-center justify-center text-white transition duration-300 transform hover:-translate-y-1 shadow-sm" title="Telegram Channel">
+          <i class="fa-brands fa-telegram"></i>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-white font-bold uppercase mb-3 font-mono text-[11px] tracking-wider">Store Guarantees</h4>
+      <ul class="space-y-2 font-mono">
+        <li class="text-emerald-400"><i class="fa-solid fa-check mr-1.5"></i> 100% Factory Sealed Hardware</li>
+        <li class="text-emerald-400"><i class="fa-solid fa-check mr-1.5"></i> Express International Air Freight</li>
+        <li class="text-emerald-400"><i class="fa-solid fa-check mr-1.5"></i> Secure On-Chain Verification</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-[11px] font-mono gap-2">
+    <p>© 2026 ApexMiners Store. All Rights Reserved.</p>
+    <p class="text-slate-500">Official Solana Wallet: <span class="text-purple-400">91hea3...2nhs</span></p>
+  </div>
+</footer>
+
+<!-- SLIDE-OVER SHOPPING CART DRAWER -->
+<div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden opacity-0 pointer-events-none transition-opacity duration-300">
+  <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+  <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+    <div id="cart-content" class="w-screen max-w-md bg-white border-l border-slate-200 shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-cart-shopping text-purple-600"></i>
+            <h3 class="text-lg font-bold text-slate-900">Your Shopping Cart</h3>
+          </div>
+          <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-slate-700 transition transform hover:rotate-90 duration-300">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Cart Item List -->
+        <div id="cart-items" class="py-4 space-y-3 max-h-[55vh] overflow-y-auto">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Cart Footer / Total Summary -->
+      <div class="pt-4 border-t border-slate-100">
+        <div class="space-y-2 mb-4 font-mono">
+          <div class="flex justify-between text-xs text-slate-500">
+            <span>SUBTOTAL (USD)</span>
+            <span id="cart-subtotal" class="text-slate-900 font-bold">$0.00</span>
+          </div>
+          <div class="flex justify-between text-xs text-purple-600 font-bold">
+            <span>ESTIMATED SOL TOTAL</span>
+            <span id="cart-sol-total">0.000 SOL</span>
+          </div>
+        </div>
+        <button onclick="openCheckoutModal()" class="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 hover:opacity-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-purple-500/20 transition transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-lock"></i>
+          <span>Secure Crypto Checkout</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: EXPANDED PRODUCT DETAIL MODAL -->
+<div id="product-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden overflow-y-auto">
+  <div class="glass-card bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl my-8 max-h-[92vh] overflow-y-auto modal-animation border border-slate-200">
+    <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition bg-slate-100 p-2.5 rounded-full border border-slate-200 transform hover:rotate-90 duration-300">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <div id="product-detail-content">
+      <!-- Dynamically populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 1: AUTHENTICATION (LOGIN / REGISTER) -->
+<div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+  <div class="glass-card bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl modal-animation border border-slate-200">
+    <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition transform hover:rotate-90 duration-300">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <!-- Modal Header Tabs -->
+    <div class="flex space-x-6 border-b border-slate-100 mb-6 pb-2">
+      <button id="tab-login" onclick="switchAuthTab('login')" class="text-lg font-bold text-purple-600 border-b-2 border-purple-600 pb-1 transition">Sign In</button>
+      <button id="tab-register" onclick="switchAuthTab('register')" class="text-lg font-bold text-slate-400 hover:text-slate-700 pb-1 transition">Create Account</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Email Address</label>
+        <input type="email" id="login-email" required placeholder="miner@domain.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Password</label>
+        <input type="password" id="login-pass" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3.5 rounded-xl hover:opacity-95 transition transform hover:scale-[1.02] shadow-md shadow-purple-500/20 flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span>Sign In to Account</span>
+      </button>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Full Name</label>
+        <input type="text" id="reg-name" required placeholder="Satoshi Nakamoto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Email Address</label>
+        <input type="email" id="reg-email" required placeholder="miner@domain.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Password</label>
+        <input type="password" id="reg-pass" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3.5 rounded-xl hover:opacity-95 transition transform hover:scale-[1.02] shadow-md shadow-purple-500/20 flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Register Account</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 2: USER PROFILE & ORDER HISTORY -->
+<div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+  <div class="glass-card bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl modal-animation border border-slate-200">
+    <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition transform hover:rotate-90 duration-300">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-slate-100">
+      <div class="w-12 h-12 rounded-2xl bg-purple-100 border border-purple-200 flex items-center justify-center text-purple-600 text-xl font-bold shadow-sm">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+      <div>
+        <h3 id="profile-user-name" class="text-xl font-bold text-slate-900">User Profile</h3>
+        <p id="profile-user-email" class="text-xs text-slate-500 font-mono">user@example.com</p>
+      </div>
+    </div>
+
+    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 font-mono">Your Saved Mining Rig Orders & Shipping Info</h4>
+    <div id="profile-orders-list" class="space-y-3 max-h-60 overflow-y-auto mb-6 pr-1">
+      <!-- Orders populated via JS -->
+    </div>
+
+    <button onclick="logoutUser()" class="w-full bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold py-3 rounded-xl text-xs border border-rose-200 transition transform hover:scale-[1.01]">
+      <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Sign Out of Session
+    </button>
+  </div>
+</div>
+
+<!-- MODAL 3: ENHANCED PROFITABILITY & BREAK-EVEN ROI CALCULATOR -->
+<div id="calc-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+  <div class="glass-card bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl modal-animation border border-slate-200">
+    <button onclick="closeCalcModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition transform hover:rotate-90 duration-300">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <div class="flex items-center space-x-2 mb-4">
+      <i class="fa-solid fa-calculator text-purple-600 text-xl"></i>
+      <h3 class="text-xl font-bold text-slate-900">ASIC Profit & ROI Calculator</h3>
+    </div>
+
+    <div class="space-y-4 text-xs font-mono">
+      <div>
+        <label class="block text-slate-600 mb-1 font-semibold">SELECT ANTMINER MODEL</label>
+        <select id="calc-miner-select" onchange="updateCalcDefaults()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 focus:outline-none focus:border-purple-500 transition">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-slate-600 mb-1 font-semibold">POWER DRAW (WATTS)</label>
+          <input type="number" id="calc-power-watts" oninput="calculateProfit()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none transition">
+        </div>
+        <div>
+          <label class="block text-slate-600 mb-1 font-semibold">ELECTRICITY ($/KWH)</label>
+          <input type="number" step="0.01" id="calc-cost-kwh" value="0.06" oninput="calculateProfit()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none transition">
+        </div>
+      </div>
+
+      <!-- Financial Metrics Summary Box -->
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 mt-4 shadow-inner">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Est. Daily Gross Yield:</span>
+          <span id="calc-gross" class="text-slate-900 font-bold">$0.00 / day</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Daily Electricity Cost:</span>
+          <span id="calc-power-cost" class="text-rose-600 font-bold">-$0.00 / day</span>
+        </div>
+        <div class="flex justify-between pt-2 border-t border-slate-200 text-sm font-bold">
+          <span class="text-emerald-600">NET DAILY PROFIT:</span>
+          <span id="calc-net" class="text-emerald-600 font-black">$0.00 / day</span>
+        </div>
+      </div>
+
+      <!-- ROI & Payback Horizon Meter -->
+      <div class="bg-gradient-to-r from-purple-900 to-slate-900 text-white p-4 rounded-2xl border border-slate-800 space-y-2 shadow-md">
+        <div class="flex justify-between items-center text-[11px]">
+          <span class="text-purple-300 font-bold"><i class="fa-solid fa-hourglass-half mr-1"></i> ESTIMATED ROI HORIZON</span>
+          <span id="calc-payback-days" class="text-emerald-400 font-extrabold">0 Days</span>
+        </div>
+        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-700">
+          <div id="calc-roi-bar" class="bg-gradient-to-r from-purple-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 45%;"></div>
+        </div>
+        <p class="text-[10px] text-slate-400 leading-tight">Estimated break-even payback period based on daily net yield against machine cost.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4: MULTI-CRYPTO CHECKOUT WITH SHIPPING -->
+<div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden overflow-y-auto">
+  <div class="glass-card bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl my-8 max-h-[90vh] overflow-y-auto modal-animation border border-slate-200">
+    <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition transform hover:rotate-90 duration-300">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+
+    <div class="text-center mb-6">
+      <div class="inline-flex p-3 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 mb-2 shadow-sm animate-pulse">
+        <i class="fa-solid fa-wallet text-2xl"></i>
+      </div>
+      <h3 class="text-2xl font-black text-slate-900">Secure Crypto Checkout</h3>
+      <p class="text-xs text-slate-500 mt-1 font-medium">Provide your global delivery destination and choose your payment currency</p>
+    </div>
+
+    <!-- Combined Checkout Form -->
+    <form onsubmit="confirmCryptoPayment(event)" class="space-y-4">
+      
+      <!-- SHIPPING DETAILS SECTION -->
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+        <h4 class="text-xs font-bold text-purple-600 uppercase tracking-wider font-mono flex items-center">
+          <i class="fa-solid fa-truck-fast mr-1.5"></i> Shipping Address & Contact
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block text-slate-600 mb-1 font-medium">Full Name</label>
+            <input type="text" id="ship-name" required placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+          </div>
+          <div>
+            <label class="block text-slate-600 mb-1 font-medium">Phone Number</label>
+            <input type="tel" id="ship-phone" required placeholder="+1 (555) 000-0000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+          </div>
+        </div>
+        <div class="text-xs">
+          <label class="block text-slate-600 mb-1 font-medium">Street Address</label>
+          <input type="text" id="ship-address" required placeholder="123 Mining Rig Lane, Suite 400" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <div>
+            <label class="block text-slate-600 mb-1 font-medium">City</label>
+            <input type="text" id="ship-city" required placeholder="New York" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+          </div>
+          <div>
+            <label class="block text-slate-600 mb-1 font-medium">State</label>
+            <input type="text" id="ship-state" required placeholder="NY" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+          </div>
+          <div>
+            <label class="block text-slate-600 mb-1 font-medium">Postal Code</label>
+            <input type="text" id="ship-zip" required placeholder="10001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+          </div>
+        </div>
+        <div class="text-xs">
+          <label class="block text-slate-600 mb-1 font-medium">Country</label>
+          <input type="text" id="ship-country" required placeholder="United States" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500">
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD SELECTION -->
+      <div class="pt-2">
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Select Payment Cryptocurrency</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200 mb-4">
+          <button type="button" id="pay-tab-SOL" onclick="selectCryptoPayment('SOL')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-sm">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Solana</span>
+          </button>
+          <button type="button" id="pay-tab-BTC" onclick="selectCryptoPayment('BTC')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900">
+            <i class="fa-brands fa-bitcoin text-amber-500"></i>
+            <span>Bitcoin</span>
+          </button>
+          <button type="button" id="pay-tab-ETH" onclick="selectCryptoPayment('ETH')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900">
+            <i class="fa-brands fa-ethereum text-cyan-500"></i>
+            <span>Ethereum</span>
+          </button>
+          <button type="button" id="pay-tab-USDT" onclick="selectCryptoPayment('USDT')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900">
+            <i class="fa-solid fa-coins text-emerald-500"></i>
+            <span>USDT TRC20</span>
+          </button>
+        </div>
+
+        <!-- Amount Banner -->
+        <div class="bg-slate-900 text-white rounded-2xl p-5 text-center mb-4 shadow-md">
+          <span class="text-[11px] text-slate-400 block font-mono tracking-wider">TOTAL DUE AMOUNT</span>
+          <div id="checkout-crypto-amount" class="text-3xl font-black text-emerald-400 font-mono py-1">0.00 USDT TRC20</div>
+          <span id="checkout-usd-amount" class="text-xs text-slate-400 font-mono">($0.00 USD)</span>
+        </div>
+
+        <!-- Address & QR Box -->
+        <div class="space-y-3">
+          <div class="flex justify-center bg-white p-3 rounded-2xl max-w-[160px] mx-auto shadow border border-slate-200 transform transition hover:scale-105 duration-300">
+            <img id="checkout-qr" src="" alt="Crypto QR Code" class="w-32 h-32">
+          </div>
+
+          <div>
+            <label id="checkout-address-label" class="block text-xs font-semibold text-slate-600 uppercase mb-1">Target Receiver Address</label>
+            <div class="flex items-center space-x-2">
+              <input type="text" id="checkout-wallet-address" readonly value="" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono text-slate-700 focus:outline-none">
+              <button type="button" onclick="copyWalletAddress()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition transform hover:scale-105 shrink-0 shadow-sm">
+                <i class="fa-regular fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <!-- Transaction Hash Verification Input -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Transaction Hash / Signature (TxID)</label>
+            <input type="text" id="tx-hash-input" required placeholder="Paste transaction signature / hash..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-mono text-slate-900 focus:outline-none focus:border-purple-500 transition">
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 text-white font-bold py-4 rounded-xl hover:opacity-95 transition transform hover:scale-[1.02] shadow-lg shadow-purple-500/25 flex items-center justify-center space-x-2 mt-2">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Confirm Order & Verify Payment</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION POPUP -->
+<div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-slate-800">
+  <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+  <span id="toast-msg" class="text-sm font-semibold">Notification message</span>
+</div>
+
+<!-- JAVASCRIPT APP LOGIC -->
+<script>
+  const WALLETS = {
+    SOL: "91hea35YrKj1BF3Ze4CrKHtLHZYqnimTst8qDrBp2nhs",
+    BTC: "bc1qwg8ukd6n4h54ujr7hzr86j63hwll0jw49e7xal",
+    ETH: "0x5e20Ba1fE0b290c931Ae461E86b112C958957e3a",
+    USDT: "TSczyqdXM7ckob57Zx12PVycGxiJNoZTMd"
+  };
+
+  let CRYPTO_RATES = {
+    SOL: 185.20,
+    BTC: 91450.00,
+    ETH: 3300.00,
+    USDT: 1.00,
+    LTC: 88.40,
+    ZEC: 42.10
+  };
+
+  let selectedCrypto = 'SOL';
+
+  const PRODUCTS = [
+    {
+      id: 1,
+      name: "Bitmain Antminer S21 XP",
+      hashrate: "270 TH/s",
+      price: 1750,
+      algorithm: "SHA-256",
+      coin: "BTC / BCH / BSV",
+      power: 3645,
+      efficiency: "13.5 J/TH",
+      image: "https://bitcoinminingdepot.net/api/public/img?url=https%3A%2F%2Fassets-www.bitmain.com.cn%2Fshop-image-storage-s3%2Fproduct%2F2024%2F06%2F28%2F13%2F4c2af89a-8fec-42b1-9ff1-905375e027ee.jpg&w=1000",
+      stock: "In Stock (Hong Kong Warehouse)",
+      badge: "Top Efficiency",
+      description: "The Bitmain Antminer S21 XP is engineered as Bitmain's premier air-cooled Bitcoin miner. Operating on the SHA-256 algorithm with a hashrate of 270 TH/s at 13.5 J/TH efficiency, it provides a 37% improvement in energy performance over older generations, significantly lowering monthly operational costs. Includes integrated power supply unit (PSU) and rugged enclosure designed for industrial or dedicated home ventilation settings."
+    },
+    {
+      id: 2,
+      name: "Bitmain Antminer L11 20 Gh/s LTC Miner",
+      hashrate: "20 Gh/s",
+      price: 2500,
+      algorithm: "Scrypt",
+      coin: "LTC / DOGE / BEL",
+      power: 3680,
+      efficiency: "184 J/Gh",
+      image: "https://bitcoinminingdepot.net/api/public/img?url=https%3A%2F%2Fassets-www.bitmain.com.cn%2Fshop-image-storage-s3%2Fproduct%2F2025%2F10%2F01%2F15%2F34a89bc2-feb6-4b27-92b7-395cf5791e17.png&w=1000",
+      stock: "In Stock (Hong Kong Warehouse)",
+      badge: "High-Yield Scrypt",
+      description: "Introduced as the flagship Scrypt ASIC miner, the Antminer L11 delivers a massive hashrate of 20 GH/s at 3,680W. Designed for dual-mining Litecoin (LTC) and Dogecoin (DOGE) simultaneously, it features advanced thermal airflow management, multi-board chip architecture, and optimized electrical efficiency."
+    },
+    {
+      id: 3,
+      name: "BITMAIN Antminer Z15 Pro 840K",
+      hashrate: "840 Ksol/s",
+      price: 4500,
+      algorithm: "Equihash",
+      coin: "ZEC / ZEN",
+      power: 2780,
+      efficiency: "3.31 J/Ksol",
+      image: "https://bitcoinminingdepot.net/api/public/img?url=https%3A%2F%2Fassets-www.bitmain.com.cn%2Fshop-image-storage-s3%2Fproduct%2F2023%2F05%2F24%2F16%2Faf0613af-c900-4dd5-8c94-eef9ea3795ae.jpg&w=1000",
+      stock: "In Stock",
+      badge: "Equihash King",
+      description: "The Antminer Z15 Pro is tailored specifically for privacy coins operating on the Equihash algorithm (ZEC / ZEN). Delivering 840 Ksol/s at 2,780W, it optimizes thermal dissipation to guarantee rock-solid runtime stability for industrial setups."
+    },
+    {
+      id: 4,
+      name: "Antminer Z15",
+      hashrate: "420 Ksol/s",
+      price: 2700,
+      algorithm: "Equihash",
+      coin: "ZEC / ZEN",
+      power: 1510,
+      efficiency: "3.6 J/Ksol",
+      image: "https://www.cryptominerbros.com/wp-content/uploads/2020/05/Antminer-Z15-420Ksol.webp",
+      stock: "In Stock",
+      badge: "Proven Performance",
+      description: "A benchmark machine for Equihash mining, the standard Antminer Z15 achieves 420 Ksol/s at a modest power draw of 1,510W. It is widely recognized for its high uptime, balanced electrical profile, and longevity."
+    },
+    {
+      id: 5,
+      name: "Bitmain Antminer Z11",
+      hashrate: "135 Ksol/s",
+      price: 750,
+      algorithm: "Equihash",
+      coin: "ZEC / ZEN",
+      power: 1418,
+      efficiency: "10.5 J/Ksol",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRMoEEBT5cyfp1HMsSnq7wY9dnx8ioEKUqpuNC_UIylQ&s=10",
+      stock: "In Stock",
+      badge: "Budget Equihash",
+      description: "The Antminer Z11 provides an accessible gateway into Zcash and Horizen mining with its 135 Ksol/s performance output and efficient 12nm semiconductor chip architecture."
+    },
+    {
+      id: 6,
+      name: "Bitmain Antminer Z15K",
+      hashrate: "525 Ksol/s",
+      price: 1500,
+      algorithm: "Equihash",
+      coin: "ZEC / ZEN",
+      power: 2483,
+      efficiency: "4.73 J/Ksol",
+      image: "https://www.antminerdistribution.com/wp-content/uploads/2023/05/Antminer-Z15-Pro-front-side.jpg",
+      stock: "In Stock",
+      badge: "New Release",
+      description: "Manufacturer: Bitmain. Model: Antminer Z15K. Also known as Zcash Miner Z15 K 525KSol. Release: Aug 2026. Size: 245 x 132 x 290mm. Weight: 5900g. Noise level: 75dB. Fans: 2. Power: 2483W. Interface: RJ45 Ethernet 10/100M. Temperature: 5 - 40 °C. Humidity: 10 - 90%."
+    },
+    {
+      id: 7,
+      name: "Bitmain Antminer Z15K",
+      hashrate: "565 Ksol/s",
+      price: 2000,
+      algorithm: "Equihash",
+      coin: "ZEC / ZEN",
+      power: 2672,
+      efficiency: "4.73 J/Ksol",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ZoSWDufGwG10amb4_8U1_pNt89YWe2cfrW5He9KWzA&s=10",
+      stock: "In Stock",
+      badge: "High-Yield Equihash",
+      description: "Bitmain Antminer Z15K (565kh) is an ASIC miner designed for Equihash algorithm, specifically targeting ZEC (Zcash) and ZEN (Horizen). It delivers a maximum hashrate of 565kh/s while consuming 2672W of power, resulting in an energy efficiency of 4.729j/kSOL."
+    },
+    {
+      id: 8,
+      name: "Antminer S23 Immersion - 442 TH/s",
+      hashrate: "442 TH/s",
+      price: 4500,
+      algorithm: "SHA-256",
+      coin: "BTC / BCH / BSV",
+      power: 5304,
+      efficiency: "12.0 J/TH",
+      image: "https://oneminers.com/cdn/shop/files/Antminer_S23_Immersion_442TH_BTC_5304W_02.png?v=1772184109&width=1000",
+      stock: "Factory Sealed",
+      badge: "Immersion Cooled",
+      description: "Engineered for specialized liquid immersion containers, the Antminer S23 Immersion utilizes dielectric fluid cooling to achieve 442 TH/s silently with zero fan noise while operating at peak thermal efficiency."
+    },
+    {
+      id: 9,
+      name: "Bitmain Antminer S21+ 216 TH",
+      hashrate: "216 TH/s",
+      price: 800,
+      algorithm: "SHA-256",
+      coin: "BTC / BCH / BSV",
+      power: 3564,
+      efficiency: "15.5 J/TH",
+      image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQgX3JbLkjgCTM-droyUoTutfiXvJt4MdHaHSrT3XS3q3dJvf635Zi3epFb_SJnknF47ovFd69bBP0PyEsOV7ODh0ou1Eu-DoicOvoxDS073hEVFFpd0fh3ewE",
+      stock: "In Stock",
+      badge: "Best Value",
+      description: "The Antminer S21+ provides an optimal cost-to-performance ratio for Bitcoin mining, pushing 216 TH/s at 3,564W with robust air-cooling architecture and extended factory components."
+    },
+    {
+      id: 10,
+      name: "Bitmain Antminer S23 Hyd 3U - 1.16 PH/s",
+      hashrate: "1.16 PH/s",
+      price: 13000,
+      algorithm: "SHA-256",
+      coin: "BTC / BCH / BSV",
+      power: 11020,
+      efficiency: "9.5 J/TH",
+      image: "https://oneminers.com/cdn/shop/files/Antminer_S23_Hyd_3U_1.16PH_BTC_11020W.webp?v=1758022974&width=1000",
+      stock: "Factory Order",
+      badge: "Ultra Hydro 1.16 PH",
+      description: "An industrial hydro-cooled powerhouse delivering an incredible 1.16 PH/s hashrate. Designed specifically for professional server rack installations equipped with external closed-loop water cooling systems."
+    },
+    {
+      id: 11,
+      name: "Bitmain Antminer S21 XP Hydro 495 TH",
+      hashrate: "495 TH/s",
+      price: 3000,
+      algorithm: "SHA-256",
+      coin: "BTC / BCH / BSV",
+      power: 5940,
+      efficiency: "12.0 J/TH",
+      image: "https://www.antminerdistribution.com/wp-content/uploads/2024/06/Antminer-S21-XP-Hydro-front-2.jpg",
+      stock: "In Stock",
+      badge: "Liquid Hydro",
+      description: "Combines the high-performance S21 XP chip architecture with liquid hydro-cooling blocks, generating 495 TH/s with superior thermal management for high-density mining facilities."
+    },
+    {
+      id: 12,
+      name: "Antminer L9 Hyd 2U (27 gh/s)",
+      hashrate: "27 Gh/s",
+      price: 3000,
+      algorithm: "Scrypt",
+      coin: "LTC / DOGE / BEL",
+      power: 5670,
+      efficiency: "210 J/Gh",
+      image: "https://www.antminerdistribution.com/wp-content/uploads/2025/09/Antminer-L9-Hyd-2U.jpg",
+      stock: "In Stock (EU Warehouse)",
+      badge: "Hydro Scrypt Power",
+      description: "A liquid-cooled Scrypt system built to maximize dual-mining performance for Litecoin and Dogecoin, offering 27 GH/s output with enhanced cooling stability and extended chip lifespans."
+    }
+  ];
+
+  let cart = [];
+  let activeFilter = 'ALL';
+  let currentUser = JSON.parse(localStorage.getItem('apex_user')) || null;
+
+  window.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    updateUserNav();
+    populateCalcSelect();
+    updateCalcDefaults();
+    fetchLiveRates();
+    startSalesPopups();
+  });
+
+  async function fetchLiveRates() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,bitcoin,ethereum,tether,litecoin,zcash&vs_currencies=usd');
+      const data = await res.json();
+      if (data) {
+        CRYPTO_RATES.SOL = data.solana?.usd || CRYPTO_RATES.SOL;
+        CRYPTO_RATES.BTC = data.bitcoin?.usd || CRYPTO_RATES.BTC;
+        CRYPTO_RATES.ETH = data.ethereum?.usd || CRYPTO_RATES.ETH;
+        CRYPTO_RATES.USDT = data.tether?.usd || 1.00;
+
+        document.getElementById('sol-price').innerText = `$${CRYPTO_RATES.SOL.toFixed(2)}`;
+        document.getElementById('btc-price').innerText = `$${CRYPTO_RATES.BTC.toLocaleString()}`;
+        document.getElementById('eth-price').innerText = `$${CRYPTO_RATES.ETH.toLocaleString()}`;
+        document.getElementById('usdt-price').innerText = `$${CRYPTO_RATES.USDT.toFixed(2)}`;
+      }
+    } catch (err) {
+      console.log("Using baseline crypto rates.");
+    }
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    if (!grid) return;
+
+    const searchInput = document.getElementById('search-input');
+    const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
+
+    const filtered = PRODUCTS.filter(p => {
+      const matchesCategory = activeFilter === 'ALL' || p.algorithm === activeFilter;
+      const matchesSearch = p.name.toLowerCase().includes(searchVal) || p.algorithm.toLowerCase().includes(searchVal);
+      return matchesCategory && matchesSearch;
+    });
+
+    grid.innerHTML = filtered.map(p => `
+      <div class="glass-card rounded-3xl p-6 flex flex-col justify-between group glass-card-hover cursor-pointer" onclick="openProductDetailModal(${p.id})">
+        <div>
+          <div class="flex justify-between items-start mb-3">
+            <span class="text-[11px] font-mono bg-purple-50 text-purple-700 px-3 py-1 rounded-lg border border-purple-200 font-bold shadow-xs">
+              ${p.algorithm} (${p.coin})
+            </span>
+            <span class="text-[11px] font-mono text-slate-500 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+              ${p.badge}
+            </span>
+          </div>
+
+          <div class="h-52 flex items-center justify-center my-4 overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-slate-100 p-3 relative group-hover:from-purple-50/50 group-hover:to-pink-50/30 transition">
+            <img src="${p.image}" alt="${p.name}" class="max-h-full object-contain product-img drop-shadow-lg" onerror="this.src='https://placehold.co/600x400/f1f5f9/6366f1?text=${encodeURIComponent(p.name)}'">
+          </div>
+
+          <h3 class="text-xl font-black text-slate-900 mb-1 group-hover:text-purple-600 transition">${p.name}</h3>
+          <p class="text-xs text-slate-500 mb-4 font-mono">Specs: ${p.hashrate} @ ${p.power}W</p>
+        </div>
+
+        <div>
+          <div class="flex items-baseline justify-between mb-4">
+            <span class="text-2xl font-black text-slate-900">$${p.price.toLocaleString()}</span>
+            <span class="text-xs font-mono text-purple-600 font-bold">~${(p.price / CRYPTO_RATES.SOL).toFixed(2)} SOL</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5" onclick="event.stopPropagation()">
+            <button onclick="addToCart(${p.id})" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs border border-slate-200 transition transform hover:scale-105 flex items-center justify-center space-x-1 shadow-xs">
+              <i class="fa-solid fa-cart-plus text-purple-600"></i>
+              <span>Add Cart</span>
+            </button>
+            <button onclick="quickBuy(${p.id})" class="bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-95 text-white font-bold py-2.5 rounded-xl text-xs transition transform hover:scale-105 flex items-center justify-center space-x-1 shadow-md shadow-purple-500/20">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Buy Now</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openProductDetailModal(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+
+    const modalContent = document.getElementById('product-detail-content');
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <!-- Image & Stock Column -->
+        <div class="md:col-span-5 flex flex-col items-center bg-gradient-to-b from-slate-50 to-slate-100 p-6 rounded-3xl border border-slate-200 relative shadow-inner">
+          <span class="absolute top-4 left-4 text-[10px] font-mono bg-purple-100 text-purple-700 border border-purple-200 px-3 py-1 rounded-lg font-bold uppercase shadow-xs">
+            ${product.badge}
+          </span>
+          <img src="${product.image}" alt="${product.name}" class="max-h-64 object-contain my-6 drop-shadow-2xl transition transform hover:scale-110 duration-500" onerror="this.src='https://placehold.co/600x400/f1f5f9/6366f1?text=${encodeURIComponent(product.name)}'">
+          <div class="w-full bg-white p-3 rounded-2xl border border-slate-200 text-center font-mono text-xs text-slate-700 flex items-center justify-center space-x-2 shadow-xs">
+            <i class="fa-solid fa-circle-check text-emerald-500 animate-pulse"></i>
+            <span>${product.stock}</span>
+          </div>
+        </div>
+
+        <!-- Description & Specifications Column -->
+        <div class="md:col-span-7 flex flex-col justify-between space-y-5">
+          <div>
+            <div class="flex items-center space-x-2 mb-2">
+              <span class="text-xs font-mono text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-lg font-bold">${product.algorithm}</span>
+              <span class="text-xs font-mono text-slate-500">Coins: ${product.coin}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-3">${product.name}</h2>
+            
+            <!-- Description Box -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-4 space-y-2 shadow-xs">
+              <h4 class="text-xs font-bold text-purple-600 uppercase tracking-wider font-mono flex items-center">
+                <i class="fa-solid fa-microchip mr-1.5"></i> Hardware Overview & Architecture
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                ${product.description}
+              </p>
+            </div>
+
+            <!-- Specs Grid -->
+            <div class="grid grid-cols-3 gap-3 font-mono text-center mb-5">
+              <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="block text-[10px] text-slate-400 font-semibold">HASHRATE</span>
+                <span class="text-xs sm:text-sm font-black text-slate-900">${product.hashrate}</span>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="block text-[10px] text-slate-400 font-semibold">POWER DRAW</span>
+                <span class="text-xs sm:text-sm font-black text-amber-600">${product.power}W</span>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="block text-[10px] text-slate-400 font-semibold">EFFICIENCY</span>
+                <span class="text-xs sm:text-sm font-black text-emerald-600">${product.efficiency}</span>
+              </div>
+            </div>
+
+            <!-- Price & Crypto Estimate -->
+            <div class="flex items-baseline justify-between mb-5 pb-4 border-b border-slate-200">
+              <div>
+                <span class="text-[10px] font-mono text-slate-400 block uppercase font-semibold">Retail Price</span>
+                <span class="text-3xl font-black text-slate-900">$${product.price.toLocaleString()} <span class="text-xs text-slate-500 font-normal">USD</span></span>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] font-mono text-slate-400 block uppercase font-semibold">Est. Crypto Equivalent</span>
+                <span class="text-sm font-bold font-mono text-purple-600">~${(product.price / CRYPTO_RATES.SOL).toFixed(2)} SOL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="grid grid-cols-2 gap-3">
+            <button onclick="addToCart(${product.id}); closeProductDetailModal();" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3.5 rounded-2xl text-xs sm:text-sm border border-slate-200 transition transform hover:scale-105 flex items-center justify-center space-x-2 shadow-xs">
+              <i class="fa-solid fa-cart-plus text-purple-600"></i>
+              <span>Add to Cart</span>
+            </button>
+            <button onclick="closeProductDetailModal(); quickBuy(${product.id});" class="bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 hover:opacity-95 text-white font-black py-3.5 rounded-2xl text-xs sm:text-sm transition transform hover:scale-105 flex items-center justify-center space-x-2 shadow-lg shadow-purple-500/25">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Buy Now</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('product-detail-modal').classList.remove('hidden');
+  }
+
+  function closeProductDetailModal() {
+    document.getElementById('product-detail-modal').classList.add('hidden');
+  }
+
+  function setFilter(cat) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-pink-500', 'text-white', 'shadow-md');
+      btn.classList.add('text-slate-600', 'bg-slate-100');
+    });
+    if (event && event.target) {
+      event.target.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-pink-500', 'text-white', 'shadow-md');
+      event.target.classList.remove('text-slate-600', 'bg-slate-100');
+    }
+    renderProducts();
+  }
+
+  function filterProducts() {
+    renderProducts();
+  }
+
+  function addToCart(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+
+    const existing = cart.find(item => item.id === productId);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ ...product, qty: 1 });
+    }
+
+    updateCartUI();
+    showToast(`Added ${product.name} to cart.`);
+  }
+
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartUI();
+  }
+
+  function quickBuy(productId) {
+    cart = [];
+    addToCart(productId);
+    openCheckoutModal();
+  }
+
+  function updateCartUI() {
+    const count = cart.reduce((acc, item) => acc + item.qty, 0);
+    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    const solTotal = subtotal / CRYPTO_RATES.SOL;
+
+    document.getElementById('cart-badge').innerText = count;
+    document.getElementById('cart-subtotal').innerText = `$${subtotal.toLocaleString()}`;
+    document.getElementById('cart-sol-total').innerText = `${solTotal.toFixed(3)} SOL`;
+
+    const itemsContainer = document.getElementById('cart-items');
+    if (cart.length === 0) {
+      itemsContainer.innerHTML = `<p class="text-center text-slate-400 py-10 text-sm font-mono">Your shopping cart is currently empty.</p>`;
+    } else {
+      itemsContainer.innerHTML = cart.map(item => `
+        <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-2xl border border-slate-200 transition transform hover:scale-[1.01] shadow-xs">
+          <div class="flex items-center space-x-3">
+            <img src="${item.image}" class="w-12 h-12 object-contain bg-white p-1 rounded-xl border border-slate-200">
+            <div>
+              <h4 class="text-xs font-bold text-slate-900">${item.name}</h4>
+              <span class="text-[11px] font-mono text-slate-500">$${item.price.toLocaleString()} x ${item.qty}</span>
+            </div>
+          </div>
+          <button onclick="removeFromCart(${item.id})" class="text-rose-500 hover:text-rose-700 text-xs p-2 transition transform hover:scale-110">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+  }
+
+  function toggleCartDrawer() {
+    const drawer = document.getElementById('cart-drawer');
+    const content = document.getElementById('cart-content');
+    if (drawer.classList.contains('pointer-events-none')) {
+      drawer.classList.remove('pointer-events-none', 'opacity-0');
+      content.classList.remove('translate-x-full');
+    } else {
+      drawer.classList.add('pointer-events-none', 'opacity-0');
+      content.classList.add('translate-x-full');
+    }
+  }
+
+  function openCheckoutModal() {
+    if (cart.length === 0) {
+      showToast("Please add items to your cart first.");
+      return;
+    }
+    if (currentUser) {
+      const nameInput = document.getElementById('ship-name');
+      if (nameInput && !nameInput.value) nameInput.value = currentUser.name;
+    }
+    selectCryptoPayment(selectedCrypto);
+    document.getElementById('checkout-modal').classList.remove('hidden');
+  }
+
+  function closeCheckoutModal() {
+    document.getElementById('checkout-modal').classList.add('hidden');
+  }
+
+  function selectCryptoPayment(crypto) {
+    selectedCrypto = crypto;
+    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    const rate = CRYPTO_RATES[crypto] || 1;
+    const cryptoAmount = (subtotal / rate).toFixed(crypto === 'BTC' ? 6 : 2);
+    const address = WALLETS[crypto];
+    const displayCryptoLabel = crypto === 'USDT' ? 'USDT TRC20' : crypto;
+
+    ['SOL', 'BTC', 'ETH', 'USDT'].forEach(c => {
+      const tab = document.getElementById(`pay-tab-${c}`);
+      if (tab) {
+        if (c === crypto) {
+          tab.className = "flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-sm";
+        } else {
+          tab.className = "flex items-center justify-center space-x-1.5 py-2.5 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900";
+        }
+      }
+    });
+
+    document.getElementById('checkout-crypto-amount').innerText = `${cryptoAmount} ${displayCryptoLabel}`;
+    document.getElementById('checkout-usd-amount').innerText = `($${subtotal.toLocaleString()} USD)`;
+    document.getElementById('checkout-address-label').innerText = `Target Receiver Address (${displayCryptoLabel})`;
+    document.getElementById('checkout-wallet-address').value = address;
+
+    let qrScheme = address;
+    if (crypto === 'SOL') qrScheme = `solana:${address}?amount=${cryptoAmount}`;
+    else if (crypto === 'BTC') qrScheme = `bitcoin:${address}?amount=${cryptoAmount}`;
+    else if (crypto === 'ETH') qrScheme = `ethereum:${address}?value=${cryptoAmount}`;
+    else if (crypto === 'USDT') qrScheme = `usdt:${address}?amount=${cryptoAmount}`;
+
+    document.getElementById('checkout-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrScheme)}`;
+  }
+
+  function copyWalletAddress() {
+    const address = WALLETS[selectedCrypto];
+    const displayCryptoLabel = selectedCrypto === 'USDT' ? 'USDT TRC20' : selectedCrypto;
+    const temp = document.createElement('input');
+    temp.value = address;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand('copy');
+    document.body.removeChild(temp);
+    showToast(`${displayCryptoLabel} address copied to clipboard!`);
+  }
+
+  function confirmCryptoPayment(e) {
+    e.preventDefault();
+    const txHash = document.getElementById('tx-hash-input').value;
+
+    if (!currentUser) {
+      showToast("Please sign in to complete and save your order history.");
+      closeCheckoutModal();
+      openAuthModal();
+      return;
+    }
+
+    const shippingInfo = {
+      fullName: document.getElementById('ship-name').value,
+      phone: document.getElementById('ship-phone').value,
+      address: document.getElementById('ship-address').value,
+      city: document.getElementById('ship-city').value,
+      state: document.getElementById('ship-state').value,
+      zip: document.getElementById('ship-zip').value,
+      country: document.getElementById('ship-country').value
+    };
+
+    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    const rate = CRYPTO_RATES[selectedCrypto] || 1;
+    const cryptoAmount = (subtotal / rate).toFixed(selectedCrypto === 'BTC' ? 6 : 2);
+    const displayCryptoLabel = selectedCrypto === 'USDT' ? 'USDT TRC20' : selectedCrypto;
+
+    const order = {
+      id: 'APX-' + Math.floor(100000 + Math.random() * 900000),
+      date: new Date().toLocaleDateString(),
+      items: [...cart],
+      totalUsd: subtotal,
+      cryptoPaid: `${cryptoAmount} ${displayCryptoLabel}`,
+      paymentAddress: WALLETS[selectedCrypto],
+      txHash: txHash,
+      shipping: shippingInfo
+    };
+
+    currentUser.orders = currentUser.orders || [];
+    currentUser.orders.unshift(order);
+    localStorage.setItem('apex_user', JSON.stringify(currentUser));
+
+    cart = [];
+    updateCartUI();
+    closeCheckoutModal();
+    toggleCartDrawer();
+
+    showToast("Order & Shipping Details Confirmed!");
+    openProfileModal();
+  }
+
+  function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+  function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+  function switchAuthTab(tab) {
+    const loginForm = document.getElementById('form-login');
+    const regForm = document.getElementById('form-register');
+    const tabLogin = document.getElementById('tab-login');
+    const tabReg = document.getElementById('tab-register');
+
+    if (tab === 'login') {
+      loginForm.classList.remove('hidden');
+      regForm.classList.add('hidden');
+      tabLogin.className = "text-lg font-bold text-purple-600 border-b-2 border-purple-600 pb-1 transition";
+      tabReg.className = "text-lg font-bold text-slate-400 hover:text-slate-700 pb-1 transition";
+    } else {
+      loginForm.classList.add('hidden');
+      regForm.classList.remove('hidden');
+      tabReg.className = "text-lg font-bold text-purple-600 border-b-2 border-purple-600 pb-1 transition";
+      tabLogin.className = "text-lg font-bold text-slate-400 hover:text-slate-700 pb-1 transition";
+    }
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    currentUser = { name: document.getElementById('reg-name').value, email: document.getElementById('reg-email').value, orders: [] };
+    localStorage.setItem('apex_user', JSON.stringify(currentUser));
+    updateUserNav();
+    closeAuthModal();
+    showToast(`Welcome, ${currentUser.name}!`);
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    currentUser = currentUser || { name: email.split('@')[0], email: email, orders: [] };
+    localStorage.setItem('apex_user', JSON.stringify(currentUser));
+    updateUserNav();
+    closeAuthModal();
+    showToast("Successfully signed in.");
+  }
+
+  function logoutUser() {
+    currentUser = null;
+    localStorage.removeItem('apex_user');
+    updateUserNav();
+    closeProfileModal();
+    showToast("Logged out of session.");
+  }
+
+  function updateUserNav() {
+    const container = document.getElementById('user-nav-container');
+    if (currentUser) {
+      container.innerHTML = `<button onclick="openProfileModal()" class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 transition transform hover:scale-105 shadow-xs"><i class="fa-solid fa-user-check text-purple-600"></i><span>${currentUser.name}</span></button>`;
+    } else {
+      container.innerHTML = `<button onclick="openAuthModal()" class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 transition transform hover:scale-105 shadow-xs"><i class="fa-regular fa-user text-purple-600"></i><span>Sign In</span></button>`;
+    }
+  }
+
+  function openProfileModal() {
+    if (!currentUser) return;
+    document.getElementById('profile-user-name').innerText = currentUser.name;
+    document.getElementById('profile-user-email').innerText = currentUser.email;
+
+    const ordersList = document.getElementById('profile-orders-list');
+    const orders = currentUser.orders || [];
+
+    if (orders.length === 0) {
+      ordersList.innerHTML = `<p class="text-xs text-slate-400 font-mono py-6 text-center">No transactions recorded yet.</p>`;
+    } else {
+      ordersList.innerHTML = orders.map(o => `
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 font-mono text-xs shadow-xs">
+          <div class="flex justify-between text-slate-900 font-bold">
+            <span>Order #${o.id}</span>
+            <span class="text-purple-600">${o.cryptoPaid}</span>
+          </div>
+          <div class="text-slate-500 text-[11px] flex justify-between">
+            <span>Date: ${o.date}</span>
+            <span>USD: $${o.totalUsd.toLocaleString()}</span>
+          </div>
+          ${o.shipping ? `
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200 mt-2 text-[11px] text-slate-700 shadow-2xs">
+              <span class="text-purple-600 font-bold block mb-0.5"><i class="fa-solid fa-location-dot mr-1"></i> Shipping Destination:</span>
+              ${o.shipping.fullName} (${o.shipping.phone})<br>
+              ${o.shipping.address}, ${o.shipping.city}, ${o.shipping.state} ${o.shipping.zip}, ${o.shipping.country}
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+    document.getElementById('profile-modal').classList.remove('hidden');
+  }
+
+  function closeProfileModal() { document.getElementById('profile-modal').classList.add('hidden'); }
+  function openCalcModal() { document.getElementById('calc-modal').classList.remove('hidden'); }
+  function closeCalcModal() { document.getElementById('calc-modal').classList.add('hidden'); }
+
+  function populateCalcSelect() {
+    document.getElementById('calc-miner-select').innerHTML = PRODUCTS.map(p => `<option value="${p.id}">${p.name} (${p.hashrate})</option>`).join('');
+  }
+
+  function updateCalcDefaults() {
+    const miner = PRODUCTS.find(p => p.id === parseInt(document.getElementById('calc-miner-select').value));
+    if (miner) {
+      document.getElementById('calc-power-watts').value = miner.power;
+      calculateProfit();
+    }
+  }
+
+  function calculateProfit() {
+    const powerWatts = parseFloat(document.getElementById('calc-power-watts').value) || 0;
+    const costKwh = parseFloat(document.getElementById('calc-cost-kwh').value) || 0;
+    const dailyPowerCost = (powerWatts / 1000) * 24 * costKwh;
+    const miner = PRODUCTS.find(p => p.id === parseInt(document.getElementById('calc-miner-select').value));
+    const estimatedGross = miner ? (miner.price * 0.0038) : 15;
+    const netDaily = estimatedGross - dailyPowerCost;
+
+    document.getElementById('calc-gross').innerText = `$${estimatedGross.toFixed(2)} / day`;
+    document.getElementById('calc-power-cost').innerText = `-$${dailyPowerCost.toFixed(2)} / day`;
+    document.getElementById('calc-net').innerText = `${netDaily >= 0 ? '+' : ''}$${netDaily.toFixed(2)} / day`;
+
+    // Dynamic Payback ROI Calculation
+    if (miner && netDaily > 0) {
+      const paybackDays = Math.ceil(miner.price / netDaily);
+      document.getElementById('calc-payback-days').innerText = `${paybackDays} Days (~${(paybackDays / 30).toFixed(1)} Mos)`;
+      const roiPercent = Math.min(100, Math.max(10, Math.round((netDaily * 365 / miner.price) * 100)));
+      document.getElementById('calc-roi-bar').style.width = `${roiPercent}%`;
+    } else {
+      document.getElementById('calc-payback-days').innerText = `N/A`;
+      document.getElementById('calc-roi-bar').style.width = `0%`;
+    }
+  }
+
+  // SOCIAL PROOF SALES NOTIFICATION POPUPS
+  function startSalesPopups() {
+    const locations = ["Reykjavik", "Frankfurt", "Texas", "Dubai", "Zurich", "Singapore", "Oslo", "Toronto"];
+    const cryptos = ["USDT TRC20", "Solana", "Bitcoin", "Ethereum"];
+    
+    setInterval(() => {
+      const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+      const randomProduct = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+      const randomCrypto = cryptos[Math.floor(Math.random() * cryptos.length)];
+
+      const popup = document.getElementById('live-sales-popup');
+      document.getElementById('sales-pop-title').innerText = `Verified Order Dispatched`;
+      document.getElementById('sales-pop-desc').innerText = `Miner in ${randomLocation} purchased ${randomProduct.name} via ${randomCrypto}`;
+
+      popup.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      
+      setTimeout(() => {
+        popup.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 5000);
+
+    }, 18000);
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').innerText = msg;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    setTimeout(() => { toast.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+  }
+
+  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>
